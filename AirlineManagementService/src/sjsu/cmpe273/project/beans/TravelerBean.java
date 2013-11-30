@@ -6,6 +6,7 @@ public class TravelerBean {
 	int ssn;
 	int person_id;
 	int booking_id;
+
 	public int getTicket_id() {
 		return ticket_id;
 	}

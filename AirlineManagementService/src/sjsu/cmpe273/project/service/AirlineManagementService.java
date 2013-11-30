@@ -16,9 +16,11 @@ import sjsu.cmpe273.project.process.FlightProcess;
 import sjsu.cmpe273.project.process.EmployeeProcess;
 import sjsu.cmpe273.project.process.LocationsProcess;
 import sjsu.cmpe273.project.process.JourneyProcess;
+import sjsu.cmpe273.project.process.CustomerProcess;
 @WebService
 public class AirlineManagementService {
 	EmployeeProcess employeeProcess = new EmployeeProcess();
+	CustomerProcess custumorProcess = new CustomerProcess();
 
 	public UserBean login(String userName, String password) {
 		UserBean userBean = new UserBean();
@@ -69,19 +71,21 @@ public class AirlineManagementService {
 	}
 	/*********************************************************************/
 	
+	// Shibai
 	public String createBooking(FlightDetailBean flightDetailBean, TravelerBean travelerBean) {
 		String bookingStatus = " ";
 		return bookingStatus;
 	}
 
+	// Shibai
 	public String cancelBooking(TravelerBean travelerBean) {
 		String bookingStatus = " ";
 		return bookingStatus;
 	}
 
+	// Shibai
 	public boolean issueTicket(UserBean userBean) {
-		boolean isIssued = true;
-		return isIssued;
+		return custumorProcess.issueTicket(userBean);
 	}
 
 	public PaymentDetailsBean makePayment(UserBean userBean, JourneyDetailBean journeyDetailBean) {
@@ -89,9 +93,9 @@ public class AirlineManagementService {
 		return paymentDetailsBean;
 	}
 
+	// Shibai
 	public UserBean[] listAllCustomer() {
-		UserBean userBean[] = new UserBean[1];
-		return userBean;
+		return custumorProcess.listAllEmployeesProcess();
 	}
 	
 	public ReservationDetailBean[] listAllReservation() {
