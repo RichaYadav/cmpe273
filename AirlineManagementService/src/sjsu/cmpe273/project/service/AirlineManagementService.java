@@ -12,18 +12,20 @@ import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.ReservationDetailBean;
 import sjsu.cmpe273.project.beans.TravelerBean;
 import sjsu.cmpe273.project.beans.UserBean;
-import sjsu.cmpe273.project.process.FlightProcess;
-import sjsu.cmpe273.project.process.EmployeeProcess;
-import sjsu.cmpe273.project.process.LocationsProcess;
-import sjsu.cmpe273.project.process.JourneyProcess;
 import sjsu.cmpe273.project.process.CustomerProcess;
+import sjsu.cmpe273.project.process.EmployeeProcess;
+import sjsu.cmpe273.project.process.FlightProcess;
+import sjsu.cmpe273.project.process.JourneyProcess;
+import sjsu.cmpe273.project.process.LocationsProcess;
+import sjsu.cmpe273.project.process.PersonProcess;
 @WebService
 public class AirlineManagementService {
 	EmployeeProcess employeeProcess = new EmployeeProcess();
 	CustomerProcess custumorProcess = new CustomerProcess();
-
-	public UserBean login(String userName, String password) {
-		UserBean userBean = new UserBean();
+	PersonProcess personProcess = new PersonProcess();
+	//Frank 
+	public UserBean login(String email, String password) {
+		UserBean userBean = personProcess.loginProcess(email,password );
 		return userBean;
 	}
 
@@ -57,8 +59,8 @@ public class AirlineManagementService {
 	 * Completed by Frank. 
 	 * Any problems, tell me.
 	 */
-	public void createEmployee(UserBean userBean) {
-		employeeProcess.createEmployeeProcess(userBean.getEmployeeBean());
+	public boolean createEmployee(UserBean userBean){
+		return employeeProcess.createEmployeeProcess(userBean);
 		//return userBean;
 	}
 	
@@ -68,6 +70,15 @@ public class AirlineManagementService {
 	
 	public UserBean[] listAllEmployees() {
 		return employeeProcess.listAllEmployeesProcess();
+	}
+	
+	public UserBean[] searchEmployee(String searchType, UserBean employee ){
+		return employeeProcess.searchEmployeeProcess(searchType, employee);
+	}
+	
+	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
+		UserBean userBean = new UserBean();
+		return userBean;
 	}
 	/*********************************************************************/
 	
@@ -121,10 +132,7 @@ public class AirlineManagementService {
 		return flightDetailBean;
 	}
 
-	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
-		UserBean userBean = new UserBean();
-		return userBean;
-	}
+
 
 	public PassengerBean[] passengerOnBoard(int journeyId, TravelerBean travelerBean) {
 		PassengerBean passengerBean[] = new PassengerBean[1];
