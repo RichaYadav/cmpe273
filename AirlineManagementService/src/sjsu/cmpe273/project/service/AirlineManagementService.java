@@ -59,9 +59,9 @@ public class AirlineManagementService {
 	 * Completed by Frank. 
 	 * Any problems, tell me.
 	 */
-	public boolean createEmployee(UserBean userBean){
-		return employeeProcess.createEmployeeProcess(userBean);
-		//return userBean;
+	public int createEmployee(UserBean userBean){
+		int status = employeeProcess.createEmployeeProcess(userBean);
+		return status;
 	}
 	
 	public boolean deleteEmployee(int userSsn) {
