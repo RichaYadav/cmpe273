@@ -120,6 +120,13 @@ ALTER TABLE TICKET_DETAILS DROP INDEX SSN;
 ALTER TABLE BOOKING_DETAILS ADD COLUMN JOURNEY_ID INT NOT NULL REFERENCES JOURNEY_DETAILS(JOURNEY_ID) ;
 /************************* NEW ALTERATIONS :: END ***************************************/
 
+/************************* NEW ALTERATIONS  :: AMOL MANE :: 3 DEC 2013  ***************************************/
+/************************* NEW ALTERATIONS  :: START  ***************************************/
+/*** PART 1 ***/
+ALTER TABLE PAYMENT_DETAILS ADD COLUMN PAYMENT_TIME TIMESTAMP DEFAULT NOW();
+ALTER TABLE BOOKING_DETAILS ADD COLUMN SEATS_BOOKED INT NOT NULL;
+/*** PART 2 : will be added later ***/
+/************************* NEW ALTERATIONS :: END ***************************************/
 
 
 /********************************************** COMMON_VALUES ******************************************************/
