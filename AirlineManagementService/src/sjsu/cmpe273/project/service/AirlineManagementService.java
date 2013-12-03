@@ -12,16 +12,20 @@ import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.ReservationDetailBean;
 import sjsu.cmpe273.project.beans.TravelerBean;
 import sjsu.cmpe273.project.beans.UserBean;
-import sjsu.cmpe273.project.process.FlightProcess;
+import sjsu.cmpe273.project.process.CustomerProcess;
 import sjsu.cmpe273.project.process.EmployeeProcess;
-import sjsu.cmpe273.project.process.LocationsProcess;
+import sjsu.cmpe273.project.process.FlightProcess;
 import sjsu.cmpe273.project.process.JourneyProcess;
+import sjsu.cmpe273.project.process.LocationsProcess;
+import sjsu.cmpe273.project.process.PersonProcess;
 @WebService
 public class AirlineManagementService {
 	EmployeeProcess employeeProcess = new EmployeeProcess();
-
-	public UserBean login(String userName, String password) {
-		UserBean userBean = new UserBean();
+	CustomerProcess custumorProcess = new CustomerProcess();
+	PersonProcess personProcess = new PersonProcess();
+	//Frank 
+	public UserBean login(String email, String password) {
+		UserBean userBean = personProcess.loginProcess(email,password );
 		return userBean;
 	}
 
@@ -55,8 +59,8 @@ public class AirlineManagementService {
 	 * Completed by Frank. 
 	 * Any problems, tell me.
 	 */
-	public void createEmployee(UserBean userBean) {
-		employeeProcess.createEmployeeProcess(userBean.getEmployeeBean());
+	public boolean createEmployee(UserBean userBean){
+		return employeeProcess.createEmployeeProcess(userBean);
 		//return userBean;
 	}
 	
@@ -67,7 +71,6 @@ public class AirlineManagementService {
 	public UserBean[] listAllEmployees() {
 		return employeeProcess.listAllEmployeesProcess();
 	}
-<<<<<<< HEAD
 	
 	public UserBean[] searchEmployee(String searchType, UserBean employee ){
 		return employeeProcess.searchEmployeeProcess(searchType, employee);
@@ -81,15 +84,15 @@ public class AirlineManagementService {
 		UserBean userBean = new UserBean();
 		return userBean;
 	}
-=======
->>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
 	/*********************************************************************/
 	
+	// Shibai
 	public String createBooking(FlightDetailBean flightDetailBean, TravelerBean travelerBean) {
 		String bookingStatus = " ";
 		return bookingStatus;
 	}
 
+	// Shibai
 	public String cancelBooking(TravelerBean travelerBean) {
 		String bookingStatus = " ";
 		return bookingStatus;
@@ -100,9 +103,9 @@ public class AirlineManagementService {
 		return "";
 	}
 
+	// Shibai
 	public boolean issueTicket(UserBean userBean) {
-		boolean isIssued = true;
-		return isIssued;
+		return custumorProcess.issueTicket(userBean);
 	}
 
 	public PaymentDetailsBean makePayment(UserBean userBean, JourneyDetailBean journeyDetailBean) {
@@ -110,13 +113,9 @@ public class AirlineManagementService {
 		return paymentDetailsBean;
 	}
 
+	// Shibai
 	public UserBean[] listAllCustomer() {
-<<<<<<< HEAD
 		return custumorProcess.listAllCustomersProcess();
-=======
-		UserBean userBean[] = new UserBean[1];
-		return userBean;
->>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
 	}
 	
 	public ReservationDetailBean[] listAllReservation() {
@@ -142,10 +141,7 @@ public class AirlineManagementService {
 		return flightDetailBean;
 	}
 
-	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
-		UserBean userBean = new UserBean();
-		return userBean;
-	}
+
 
 	public PassengerBean[] passengerOnBoard(int journeyId, TravelerBean travelerBean) {
 		PassengerBean passengerBean[] = new PassengerBean[1];
@@ -185,47 +181,4 @@ public class AirlineManagementService {
 
 		return isDuplicate;
 	}
-	
-	public JourneyDetailBean[] listAllJourneys(){
-		JourneyDetailBean journeyList[] = null;
-		
-		JourneyProcess journeyProcess = new JourneyProcess();
-		journeyList = journeyProcess.listAllJourneys();
-		
-		return journeyList;
-	}
-	
-	public JourneyDetailBean journeyDetail(int journeyId){
-		JourneyDetailBean journeyDetailBean = null;
-		
-		JourneyProcess journeyProcess = new JourneyProcess();
-		journeyDetailBean = journeyProcess.getJourneyDetail(journeyId);
-//		System.out.println(journeyDetailBean.getArrival_time());
-		return journeyDetailBean;
-	}
-	
-	public boolean updatejourney(JourneyDetailBean journeyDetailBean){
-		boolean isInserted = true;
-		
-		JourneyProcess journeyProcess = new JourneyProcess();
-		isInserted = journeyProcess.updateJourney(journeyDetailBean);
-		
-		return isInserted;
-	}
-	
-	public boolean cancelJourney(int journeyId){
-		boolean isCancelled = true;
-		
-		JourneyProcess journeyProcess = new JourneyProcess();
-		isCancelled = journeyProcess.cancelJourney(journeyId);
-		
-		return isCancelled;
-	}
-	/*public static void main(String[] args) {
-		AirlineManagementService airlineManagementService = new AirlineManagementService();
-		JourneyDetailBean journeyDetailBean = airlineManagementService.journeyDetail(6);
-		for (JourneyDetailBean journeyDetailBean : journeyList) {
-			System.out.println(journeyDetailBean.getDeparture_time());
-		}
-	}*/
 }

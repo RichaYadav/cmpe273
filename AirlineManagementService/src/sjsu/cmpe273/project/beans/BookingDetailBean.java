@@ -5,13 +5,13 @@ public class BookingDetailBean {
 	int booking_status;
 	int payment_id;
 	int booking_cancelled;
-	int journry_id;
+	int journey_id;
 	
 	public int getJournry_id() {
-		return journry_id;
+		return journey_id;
 	}
-	public void setJournry_id(int journry_id) {
-		this.journry_id = journry_id;
+	public void setJournry_id(int journey_id) {
+		this.journey_id = journey_id;
 	}
 	public int getBooking_id() {
 		return booking_id;
