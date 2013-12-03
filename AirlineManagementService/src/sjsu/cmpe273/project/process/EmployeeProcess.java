@@ -1,17 +1,17 @@
 package sjsu.cmpe273.project.process;
 
 import sjsu.cmpe273.project.beans.AirlineEmployeeBean;
-import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.UserBean;
-import sjsu.cmpe273.project.dao.AirlineEmployeeDao;
+import sjsu.cmpe273.project.dao.AirlineEmployee;
 
 /*
  * By Frank;
  */
 public class EmployeeProcess {
 	
-	AirlineEmployeeDao airlineEmply = new AirlineEmployeeDao();
+	AirlineEmployee airlineEmply = new AirlineEmployee();
 	
+<<<<<<< HEAD
 	
 	public boolean createEmployeeProcess(UserBean user){
 		PersonProcess pp = new PersonProcess();
@@ -33,6 +33,10 @@ public class EmployeeProcess {
 			employee.setPerson_id(p.getPerson_id());
 			return airlineEmply.storeEmployeeInfo(employee);	
 		}	
+=======
+	public void createEmployeeProcess(AirlineEmployeeBean emply){
+		airlineEmply.storeEmployeeInfo(emply);
+>>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
 	}
 	
 	public boolean deleteEmployeeProcess(int ssn){
@@ -43,7 +47,4 @@ public class EmployeeProcess {
 		return airlineEmply.selectAllEmployees();
 	}
 	
-	public UserBean[] searchEmployeeProcess(String searchType, UserBean user){
-		return airlineEmply.searchEmployee(searchType, user);
-	}
 }
