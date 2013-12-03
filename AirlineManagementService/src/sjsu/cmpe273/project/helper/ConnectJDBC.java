@@ -7,22 +7,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConnectJDBC {
-
-	private String dbDriver = "com.mysql.jdbc.Driver";
-	private String username = "root";
-	private String password = "root";
-	private String URL = "jdbc:mysql://localhost/airline_database";
-
 	public Connection connectDatabase() {
 		Connection connection = null;
 		try {
-			Class.forName(dbDriver).newInstance();
-			connection = DriverManager.getConnection(URL, username, password);
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/AIRLINE_DATABASE", "root", "Janataraja-383");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return connection;
 	}
+	
 
 	public void closeConnection(ResultSet rs, Statement st, Connection con) {
 
@@ -59,4 +54,5 @@ public class ConnectJDBC {
 			e.printStackTrace();
 		}
 	}
+
 }

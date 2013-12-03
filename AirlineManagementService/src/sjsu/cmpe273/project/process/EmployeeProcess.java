@@ -1,37 +1,18 @@
 package sjsu.cmpe273.project.process;
 
 import sjsu.cmpe273.project.beans.AirlineEmployeeBean;
-import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.UserBean;
-import sjsu.cmpe273.project.dao.AirlineEmployeeDao;
+import sjsu.cmpe273.project.dao.AirlineEmployee;
 
 /*
  * By Frank;
  */
 public class EmployeeProcess {
 	
-	AirlineEmployeeDao airlineEmply = new AirlineEmployeeDao();
+	AirlineEmployee airlineEmply = new AirlineEmployee();
 	
-	
-	public boolean createEmployeeProcess(UserBean user){
-		PersonProcess pp = new PersonProcess();
-		AirlineEmployeeBean employee = user.getEmployeeBean();
-		//check if employee is already in the person table
-		PersonBean p = pp.findPersonProcess(user);
-		if(p == null){
-			/*
-			 * Here we need to improve with Statement.getGeneratedKey()
-			 */
-			// if not, create person , then create employee 
-			pp.createPersonProcess(user);
-			PersonBean p1 = pp.findPersonProcess(user);
-			employee.setPerson_id(p1.getPerson_id());
-			return airlineEmply.storeEmployeeInfo(employee);
-		}else{
-			// else get person id , create employee
-			employee.setPerson_id(p.getPerson_id());
-			return airlineEmply.storeEmployeeInfo(employee);	
-		}	
+	public void createEmployeeProcess(AirlineEmployeeBean emply){
+		airlineEmply.storeEmployeeInfo(emply);
 	}
 	
 	public boolean deleteEmployeeProcess(int ssn){
@@ -42,7 +23,4 @@ public class EmployeeProcess {
 		return airlineEmply.selectAllEmployees();
 	}
 	
-	public UserBean[] searchEmployeeProcess(String searchType, UserBean user){
-		return airlineEmply.searchEmployee(searchType, user);
-	}
 }
