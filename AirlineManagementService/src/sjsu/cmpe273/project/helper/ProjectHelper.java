@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 public class ProjectHelper {
 	public static void closeStatement(Statement statement) {
@@ -35,5 +36,14 @@ public class ProjectHelper {
 			}
 		}
 
+	}
+	
+	public static String createID(String type){
+		StringBuffer id = new StringBuffer();
+		id.append(type);
+		for(int i = 0; i < 10 ; i++){
+			id.append(new Random().nextInt(9));
+		}
+		return id.toString();
 	}
 }

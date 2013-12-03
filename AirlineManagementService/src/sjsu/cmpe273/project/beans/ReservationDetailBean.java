@@ -6,6 +6,22 @@ FlightDetailBean flightDetailBean;
 PersonBean personBean;
 TravelerBean travelerBean;
 BookingDetailBean bookingDetailBean;
+LocationsBean destination;
+LocationsBean source;
+
+
+public LocationsBean getDestination() {
+	return destination;
+}
+public void setDestination(LocationsBean destination) {
+	this.destination = destination;
+}
+public LocationsBean getSource() {
+	return source;
+}
+public void setSource(LocationsBean source) {
+	this.source = source;
+}
 public JourneyDetailBean getJourneyDetailBean() {
 	return journeyDetailBean;
 }

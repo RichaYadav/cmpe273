@@ -18,6 +18,7 @@ public class EmployeeProcess {
 		AirlineEmployeeBean employee = user.getEmployeeBean();
 		//check if employee is already in the person table
 		PersonBean p = pp.findPersonProcess(user);
+		System.out.println("----------->"+p);
 		if(p == null){
 			/*
 			 * Here we need to improve with Statement.getGeneratedKey()

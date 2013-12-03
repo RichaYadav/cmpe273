@@ -11,7 +11,14 @@ public class JourneyDetailBean {
 	float ticket_price;
 	String departure_time;
 	String arrival_time;
+	int journey_status;
 	
+	public int getJourney_status() {
+		return journey_status;
+	}
+	public void setJourney_status(int journey_status) {
+		this.journey_status = journey_status;
+	}
 	public int getJourney_id() {
 		return journey_id;
 	}

@@ -76,6 +76,10 @@ public class AirlineManagementService {
 		return employeeProcess.searchEmployeeProcess(searchType, employee);
 	}
 	
+	public void editEmployee(){
+		
+	}
+	
 	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
 		UserBean userBean = new UserBean();
 		return userBean;
@@ -93,6 +97,11 @@ public class AirlineManagementService {
 		String bookingStatus = " ";
 		return bookingStatus;
 	}
+	
+	public String createCustomer(UserBean customer){
+		
+		return "";
+	}
 
 	// Shibai
 	public boolean issueTicket(UserBean userBean) {
@@ -106,7 +115,7 @@ public class AirlineManagementService {
 
 	// Shibai
 	public UserBean[] listAllCustomer() {
-		return custumorProcess.listAllEmployeesProcess();
+		return custumorProcess.listAllCustomersProcess();
 	}
 	
 	public ReservationDetailBean[] listAllReservation() {
