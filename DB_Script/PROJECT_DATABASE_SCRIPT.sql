@@ -103,9 +103,6 @@ ALTER TABLE JOURNEY_DETAILS ADD COLUMN DEPARTURE_TIME TIMESTAMP;
 ALTER TABLE JOURNEY_DETAILS ADD COLUMN ARRIVAL_TIME TIMESTAMP;
 ALTER TABLE JOURNEY_DETAILS MODIFY COLUMN TICKET_PRICE FLOAT NOT NULL;
 ALTER TABLE JOURNEY_DETAILS ADD COLUMN FLIGHT_CANCELLED BOOLEAN DEFAULT 0;
-ALTER TABLE USER_ACCOUNT ADD column USER_TYPE INT;
-ALTER TABLE PERSON ADD column PERSON_DELETED INT DEFAULT 0;
-
 
 /************************* NEW ALTERATIONS  :: AMOL MANE :: 1 DEC 2013  ***************************************/
 /************************* NEW ALTERATIONS  :: START  ***************************************/
@@ -120,17 +117,6 @@ ALTER TABLE TICKET_DETAILS DROP INDEX SSN;
 ALTER TABLE BOOKING_DETAILS ADD COLUMN JOURNEY_ID INT NOT NULL REFERENCES JOURNEY_DETAILS(JOURNEY_ID) ;
 /************************* NEW ALTERATIONS :: END ***************************************/
 
-/************************* NEW ALTERATIONS  :: AMOL MANE :: 3 DEC 2013  ***************************************/
-/************************* NEW ALTERATIONS  :: START  ***************************************/
-/*** PART 1 ***/
-ALTER TABLE PAYMENT_DETAILS ADD COLUMN PAYMENT_TIME TIMESTAMP DEFAULT NOW();
-ALTER TABLE BOOKING_DETAILS ADD COLUMN SEATS_BOOKED INT NOT NULL;
-
-ALTER TABLE PAYMENT_DETAILS MODIFY COLUMN CARD_NUMBER BIGINT;
-ALTER TABLE PAYMENT_DETAILS MODIFY COLUMN ACCOUNT_NUMBER BIGINT;
-
-/*** PART 2 : will be added later ***/
-/************************* NEW ALTERATIONS :: END ***************************************/
 
 
 /********************************************** COMMON_VALUES ******************************************************/
@@ -150,15 +136,32 @@ INSERT INTO COMMON_VALUES(ID_TYPE, ID_DESCRIPTION) VALUES ('PAYMENT_STATUS','FAI
 
 
 /********************************************** COMMON_VALUES ******************************************************/
+ALTER TABLE USER_ACCOUNT ADD column USER_TYPE INT;
+ALTER TABLE PERSON ADD column PERSON_DELETED INT DEFAULT 0;
+ALTER TABLE journey_details ADD COLUMN AIRLINE_ID  INT NOT NULL references  airline_details(AIRLINE_ID);
+UPDATE  journey_details set AIRLINE_ID = 1;
+
 INSERT INTO  USER_ACCOUNT VALUES(1, '68018500', now(), 3);
 insert into person value(1,3,'admin','admin','admin@admin.com','1111','1111','111111','11','12','22','1111');
 
+insert into airline_details(airline_name) values("san jose");
+insert into airline_details(airline_name) values("san Francisco");
+insert into locations (LOCATION_NAME,AIRPORT_NAME,ADDRESS,STATE,COUNTRY,ZIP_CODE) values('SF','SF_airline','1138 woodborough','1','2',3333);
+insert into locations (LOCATION_NAME,AIRPORT_NAME,ADDRESS,STATE,COUNTRY,ZIP_CODE) values('SJ','SJ_airline','1140 waaaborough','1','2',2222);
+insert into locations (LOCATION_NAME,AIRPORT_NAME,ADDRESS,STATE,COUNTRY,ZIP_CODE) values('NY','NY_airline','3338 woodaaborough','1','4',3334);
 
 
+insert into  flight_details(AIRLINE_ID,FLIGHT_NAME,DATE_ADDED,SEATS) values(1, "A200" , now(), 100);
+insert into journey_details(FLIGHT_ID,FLIGHT_SOURCE,FLIGHT_DESTINATION,SEATS_AVAILABLE,SEATS_BOOKED,TICKET_PRICE,DEPARTURE_TIME,ARRIVAL_TIME)
+values(1,1,2,600,200,19.9,'2000-09-09 10:11','2000-09-10 10:11');
 
+select * from airline_details;
 
+select * from flight_details;
 
+select * from locations;
+select * from journey_details;
 
+select * from journey_details where DEPARTURE_TIME = '' and FLIGHT_SOURCE = '' and FLIGHT_DESTINATION='';
 
-
- 
+select * from journey_details jd inner join airline_details ad on jd.AIRLINE_ID = ad.AIRLINE_ID where  FLIGHT_SOURCE = 1 and FLIGHT_DESTINATION=2 and FLIGHT_CANCELLED = 0
