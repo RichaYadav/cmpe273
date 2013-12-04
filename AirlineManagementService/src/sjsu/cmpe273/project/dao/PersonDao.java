@@ -109,5 +109,31 @@ public class PersonDao {
 		}
 		return null;
 	}
+	
+	// shibai
+	public boolean updatePerson (Connection connection, PersonBean person) {
+		// update person table
+
+		//PersonBean person = user.getPerson();
+		String query = "update PERSON set first_name='" + person.getFirst_name() + "', last_name='" + person.getLast_name() 
+				+ "', EMAIL_ADDRESSS='" + person.getEmail_address() + "', PASSPORT_NUMBER='" + person.getPassport_number()
+				+ "', ADDRESS_LINE1='" + person.getAddress_line1() + "', ADDRESS_LINE2='" + person.getAddress_line2()
+				+ "', CITY='" + person.getCity() + "', STATE='" + person.getState() + "', COUNTRY='" + person.getCountry()
+				+ "', ZIP_CODE='" + person.getZip_code() + "', PERSON_DELETED=" + person.getPerson_deleted() + ", Date_of_birth='" + person.getDob()
+				+ "' where person_id=" + person.getPerson_id();
+		System.out.println(query);
+		try{
+			st = connection.createStatement();
+			st.executeUpdate(query);
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}finally{
+			ProjectHelper.closeStatement(st);
+		}
+		return true;
+	}
+
 
 }

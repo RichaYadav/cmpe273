@@ -10,7 +10,8 @@ public class ConnectJDBC {
 
 	private String dbDriver = "com.mysql.jdbc.Driver";
 	private String username = "root";
-	private String password = "Janataraja-383";
+	//private String password = "Janataraja-383";
+	private String password = "";
 	private String URL = "jdbc:mysql://localhost/airline_database";
 
 	public Connection connectDatabase() {
