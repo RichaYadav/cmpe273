@@ -31,7 +31,6 @@ public class AirlineEmployeeDao {
 		try {
 			st = connection.createStatement();
 			st.executeUpdate(sql_insertEmply);
-			connectionJDBC.closeConnection(null, st, connection);
 			System.out.println("Completing Storing! ");
 			return true;
 		} catch (SQLException e) {
@@ -39,19 +38,24 @@ public class AirlineEmployeeDao {
 			e.printStackTrace();
 			System.out.println("Storing Employee failed!");
 			return false;
-		}	 
+		}finally{
+			ProjectHelper.closeResultSet(rs);
+			ProjectHelper.closeStatement(st);
+		}
 	}	
 	
-	public boolean deleteEmployeeInfo(Connection connection, int ssn){
-		String sql_deleteEmply = "delete from airline_employee where ssn ="+ssn;
+	public boolean deleteEmployeeInfo(Connection connection, int id){
+		String sql_deleteEmply = "update person set person_deleted=1 where person_id="+id;
 		
 		try {
 			st = connection.createStatement();
 			st.executeUpdate(sql_deleteEmply);
+			System.out.println(this.getClass().toString()+" method{deleteEmployeeInfo} successfully!");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println(this.getClass().toString()+" method{deleteEmployeeInfo} error!");
 			return false;
 		}finally{
 			ProjectHelper.closeStatement(st);
@@ -63,7 +67,7 @@ public class AirlineEmployeeDao {
 	
 	public UserBean[] selectAllEmployees(Connection connection){
 		String sql_selectEmply = "select * from airline_employee emp  " +
-				"inner join person p on emp.person_id = p.person_id ";
+				"inner join person p on emp.person_id = p.person_id and p.person_deleted=0";
 		//String sql_selectEmply1 = "select * from airline_employee";
 		return formUserBeans( connection , sql_selectEmply);
 	}

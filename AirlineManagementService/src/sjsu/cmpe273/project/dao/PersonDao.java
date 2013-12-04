@@ -55,7 +55,8 @@ public class PersonDao {
 	}
 
 	public UserBean findUser(String email, String password) {
-		String sql = "select * from person p inner join user_account u on person_id = user_id" + " where p.email_addresss='" + email + "'";
+		String sql = "select * from person p " +
+				"inner join user_account u on person_id = user_id" + " where p.email_addresss='" + email + "'";
 		System.out.println("sql --->  " + sql);
 		ConnectJDBC connectionJDBC = new ConnectJDBC();
 		try {
