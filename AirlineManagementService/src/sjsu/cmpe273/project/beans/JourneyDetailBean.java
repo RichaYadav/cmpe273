@@ -11,51 +11,39 @@ public class JourneyDetailBean {
 	float ticket_price;
 	String departure_time;
 	String arrival_time;
-//<<<<<<< HEAD
-////<<<<<<< HEAD
-//=======
-//>>>>>>> 83dd5471c0d813373febd5f4d04888352e6260e0
 	int journey_status;
+	String airline_name;
+	LocationsBean to;
+	LocationsBean from;
 	
+	
+	public String getAirline_name() {
+		return airline_name;
+	}
+	public void setAirline_name(String airline_name) {
+		this.airline_name = airline_name;
+	}
+	
+	
+	
+	public LocationsBean getTo() {
+		return to;
+	}
+	public void setTo(LocationsBean to) {
+		this.to = to;
+	}
+	public LocationsBean getFrom() {
+		return from;
+	}
+	public void setFrom(LocationsBean from) {
+		this.from = from;
+	}
 	public int getJourney_status() {
 		return journey_status;
 	}
 	public void setJourney_status(int journey_status) {
 		this.journey_status = journey_status;
 	}
-//<<<<<<< HEAD
-////=======
-	LocationsBean sourceLocation;
-	LocationsBean destinationLocation;
-	String flight_name;
-
-	public String getFlight_name() {
-		return flight_name;
-	}
-
-	public void setFlight_name(String flight_name) {
-		this.flight_name = flight_name;
-	}
-
-	public LocationsBean getSourceLocation() {
-		return sourceLocation;
-	}
-
-	public void setSourceLocation(LocationsBean sourceLocation) {
-		this.sourceLocation = sourceLocation;
-	}
-
-	public LocationsBean getDestinationLocation() {
-		return destinationLocation;
-	}
-
-	public void setDestinationLocation(LocationsBean destinationLocation) {
-		this.destinationLocation = destinationLocation;
-	}
-
-//>>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
-//=======
-//>>>>>>> 83dd5471c0d813373febd5f4d04888352e6260e0
 	public int getJourney_id() {
 		return journey_id;
 	}

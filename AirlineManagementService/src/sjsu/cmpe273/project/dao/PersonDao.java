@@ -18,7 +18,8 @@ public class PersonDao {
 	public boolean createPerson(Connection connection, UserBean user) {
 		boolean isSuccessful = true;
 		String sql = "insert into person(PERSON_TYPE ,FIRST_NAME,LAST_NAME,EMAIL_ADDRESSS,"
-				+ "PASSPORT_NUMBER,ADDRESS_LINE1,ADDRESS_LINE2,CITY,STATE,COUNTRY,ZIP_CODE) " + "values("
+				+ "PASSPORT_NUMBER,ADDRESS_LINE1,ADDRESS_LINE2,CITY,STATE,COUNTRY,ZIP_CODE) "
+				+ "values("
 				+ user.getPerson().getPerson_type()
 				+ ",'"
 				+ user.getPerson().getFirst_name()
@@ -37,7 +38,9 @@ public class PersonDao {
 				+ "','"
 				+ user.getPerson().getState()
 				+ "','"
-				+ user.getPerson().getCounrty() + "','" + user.getPerson().getZip_code() + "')";
+				+ user.getPerson().getCounrty()
+				+ "','"
+				+ user.getPerson().getZip_code() + "')";
 		System.out.println(sql);
 
 		try {
@@ -48,14 +51,15 @@ public class PersonDao {
 			e.printStackTrace();
 			isSuccessful = false;
 		} finally {
-			ProjectHelper.closeConnection(null);
+			ProjectHelper.closeConnection(connection);
 		}
 
 		return isSuccessful;
 	}
 
 	public UserBean findUser(String email, String password) {
-		String sql = "select * from person p inner join user_account u on person_id = user_id" + " where p.email_addresss='" + email + "'";
+		String sql = "select * from person p inner join user_account u on person_id = user_id"
+				+ " where p.email_addresss='" + email + "'";
 		System.out.println("sql --->  " + sql);
 		ConnectJDBC connectionJDBC = new ConnectJDBC();
 		try {
@@ -71,7 +75,8 @@ public class PersonDao {
 					person.setPerson_id(rs.getInt("person_id"));
 					person.setEmail_address(rs.getString("email_addresss"));
 					person.setPerson_type(rs.getInt("person_type"));
-					System.out.println("person_type = " + rs.getInt("person_type"));
+					System.out.println("person_type = "
+							+ rs.getInt("person_type"));
 
 					user.setPerson(person);
 
@@ -91,7 +96,8 @@ public class PersonDao {
 	public PersonBean selectPerson(String passport_number) {
 
 		ConnectJDBC connectionJDBC = new ConnectJDBC();
-		String sql = "select * from person where passport_number='" + passport_number + "'";
+		String sql = "select * from person where passport_number='"
+				+ passport_number + "'";
 		try {
 			connection = connectionJDBC.connectDatabase();
 			st = connection.createStatement();
@@ -105,7 +111,7 @@ public class PersonDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			connectionJDBC.closeConnection(rs, st, null);
+			connectionJDBC.closeConnection(rs, st, connection);
 		}
 		return null;
 	}

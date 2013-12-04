@@ -41,22 +41,22 @@ public class TestingOperationOnEmployee {
 		employee.setDesignation(111);
 		UserBean user = new UserBean();
 		user.setEmployeeBean(employee);
-//		service.createEmployee(user);
+		service.createEmployee(user);
 	}
 	
-	public void testDeleteEmployee(){/*
+	public void testDeleteEmployee(){
 		if(service.deleteEmployee(employee.getSsn())){
 			System.out.println("delete successfully");
 		}else{
 			System.out.println("delete UN_successfully!");
 		}
-	*/}
+	}
 	
-	public void testListAllEmply(){/*
+	public void testListAllEmply(){
 		UserBean[] emplys = service.listAllEmployees();
 		for(int i = 0 ; i < emplys.length ; i++){
 			System.out.println("Employee["+i+"]--->SSn :" + emplys[i].getEmployeeBean().getSsn() );
 		}
-	*/}
+	}
 
 }

@@ -23,6 +23,7 @@ public class AirlineManagementService {
 	EmployeeProcess employeeProcess = new EmployeeProcess();
 	CustomerProcess custumorProcess = new CustomerProcess();
 	PersonProcess personProcess = new PersonProcess();
+	JourneyProcess journeyProcess = new JourneyProcess();
 	//Frank 
 	public UserBean login(String email, String password) {
 		UserBean userBean = personProcess.loginProcess(email,password );
@@ -59,9 +60,9 @@ public class AirlineManagementService {
 	 * Completed by Frank. 
 	 * Any problems, tell me.
 	 */
-	public boolean createEmployee(UserBean userBean){
-		return employeeProcess.createEmployeeProcess(userBean);
-		//return userBean;
+	public int createEmployee(UserBean userBean){
+		int status = employeeProcess.createEmployeeProcess(userBean);
+		return status;
 	}
 	
 	public boolean deleteEmployee(int userSsn) {
@@ -84,46 +85,16 @@ public class AirlineManagementService {
 		UserBean userBean = new UserBean();
 		return userBean;
 	}
+	
+	public JourneyDetailBean[] searchJourneys(String to , String from, String time){
+		
+		return journeyProcess.searchJourneys(to, from, time);
+	}
 	/*********************************************************************/
 	
 	// Shibai
 	public String createBooking(FlightDetailBean flightDetailBean, TravelerBean travelerBean) {
 		String bookingStatus = " ";
-		
-		CustomerProcess customerProcess = new CustomerProcess();
-		JourneyDetailBean journeyBean = new JourneyDetailBean();
-		journeyBean.setJourney_id(6);
-		
-		UserBean[] userBeans = new UserBean[1];
-		UserBean userBean = new UserBean();
-		
-		userBean.setPerson(new PersonBean());
-		
-		userBean.getPerson().setPerson_type(1);
-		userBean.getPerson().setFirst_name("Amol");
-		userBean.getPerson().setLast_name("Mane");
-		userBean.getPerson().setPassport_number("H70409131");
-		userBean.getPerson().setAddress_line1("190 Ryland Street");
-		userBean.getPerson().setCity("San Jose");
-		userBean.getPerson().setCounrty("USA");
-		userBean.getPerson().setState("CA");
-		userBean.getPerson().setEmail_address("amol.mane@sjsu.edu");
-		userBean.getPerson().setZip_code("95110");
-		
-		userBean.setTraveler(new TravelerBean());
-		userBean.getTraveler().setSsn(123456789);
-		userBeans[0] = userBean;
-		
-		PaymentDetailsBean paymentBean = new PaymentDetailsBean();
-//		paymentBean.setCard_number(1234567890123456l);
-		paymentBean.setCard_number(0);
-		paymentBean.setAmount_paid(1500);
-		paymentBean.setPayment_method(5);
-//		paymentBean.setAccount_number(0);
-		paymentBean.setAccount_number(1234567890123456l);
-		
-		customerProcess.createBooking(journeyBean, userBeans, paymentBean);
-		
 		return bookingStatus;
 	}
 
@@ -215,10 +186,5 @@ public class AirlineManagementService {
 		isDuplicate = journeyProcess.checkDuplicateFlight(journeyDetailBean);
 
 		return isDuplicate;
-	}
-	
-	public static void main(String[] args) {
-		AirlineManagementService airlineManagementService = new AirlineManagementService();
-		airlineManagementService.createBooking(new FlightDetailBean(), new TravelerBean());
 	}
 }

@@ -60,7 +60,6 @@ public class AirlineEmployeeDao {
 	
 	//which method should be in personDao
 	
-	
 	public UserBean[] selectAllEmployees(Connection connection){
 		String sql_selectEmply = "select * from airline_employee emp  " +
 				"inner join person p on emp.person_id = p.person_id ";
@@ -81,6 +80,8 @@ public class AirlineEmployeeDao {
 			sql = sql + " where ssn =" + user.getEmployeeBean().getSsn();
 		}else if(searchType.equals("passport_number")){
 			sql = sql + " where passport_number='"+user.getPerson().getPassport_number()+"'";
+		}else if(searchType.equals("person_id")){
+			sql = sql + " where emply.person_id="+user.getEmployeeBean().getPerson_id();
 		}
 		System.out.println("searchEmployee().SQL----->"+sql);
 		return formUserBeans(connection , sql);
@@ -122,6 +123,7 @@ public class AirlineEmployeeDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}finally{
 			ProjectHelper.closeResultSet(rs);
 			ProjectHelper.closeStatement(st);
