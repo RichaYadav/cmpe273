@@ -99,7 +99,7 @@ public class EmployeeProcess {
 		connection = connectJDBC.connectDatabase();
 		
 		try{
-			boolean flag = airlineEmply.updateEmployee(employee);
+			boolean flag = airlineEmply.updateEmployee(connection,employee);
 			if (!flag) {
 				System.out.println("update employee failed");
 			}

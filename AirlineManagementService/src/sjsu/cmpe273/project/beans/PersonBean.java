@@ -11,7 +11,7 @@ public class PersonBean {
 	String address_line2;
 	String city;
 	String state;
-	String counrty;
+	String country;
 	String zip_code;
 	int person_deleted;
 	String dob;
@@ -76,11 +76,11 @@ public class PersonBean {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getCounrty() {
-		return counrty;
+	public String getCountry() {
+		return country;
 	}
-	public void setCounrty(String counrty) {
-		this.counrty = counrty;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	public String getZip_code() {
 		return zip_code;

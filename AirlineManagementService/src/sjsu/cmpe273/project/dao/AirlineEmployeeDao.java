@@ -104,7 +104,7 @@ public class AirlineEmployeeDao {
 				person.setAddress_line2(rs.getString("address_line2"));
 				person.setCity(rs.getString("city"));
 				person.setState(rs.getString("state"));
-				person.setCounrty(rs.getString("country"));
+				person.setCountry(rs.getString("country"));
 				person.setZip_code(rs.getString("zip_code"));
 				
 				AirlineEmployeeBean employee = new AirlineEmployeeBean();
@@ -141,7 +141,7 @@ public class AirlineEmployeeDao {
 		AirlineEmployeeBean employee = user.getEmployeeBean();
 		
 		String query1 = "update AIRLINE_EMPLOYEE set DESIGNATION={select id from COMMON_VALUES where ID_TYPE='person' and ID_DESCRIPTION='employee'}"
-		+ " where person_id=" + empoyee.getPerson_id(); 
+		+ " where person_id=" + employee.getPerson_id(); 
 
 		// update employee table
 		PersonBean person = user.getPerson();
@@ -155,9 +155,9 @@ public class AirlineEmployeeDao {
 			st = connection.createStatement();
 			st.executeUpdate(query1);
 			st.executeUpdate(query2);
-		
+			
 		}catch(SQLException e){
-			e.printStackTrace)();
+			e.printStackTrace();
 			return false;
 		}finally{
 			ProjectHelper.closeStatement(st);

@@ -37,7 +37,7 @@ public class PersonDao {
 				+ "','"
 				+ user.getPerson().getState()
 				+ "','"
-				+ user.getPerson().getCounrty() + "','" + user.getPerson().getZip_code() + "')";
+				+ user.getPerson().getCountry() + "','" + user.getPerson().getZip_code() + "')";
 		System.out.println(sql);
 
 		try {

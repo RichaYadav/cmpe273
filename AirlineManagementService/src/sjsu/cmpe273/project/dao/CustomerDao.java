@@ -123,7 +123,7 @@ public class CustomerDao {
 				person.setAddress_line2(rs.getString("address_line2"));
 				person.setCity(rs.getString("city"));
 				person.setState(rs.getString("state"));
-				person.setCounrty(rs.getString("country"));
+				person.setCountry(rs.getString("country"));
 				person.setZip_code(rs.getString("zip_code"));
 
 				TravelerBean traveler = new TravelerBean();

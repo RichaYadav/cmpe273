@@ -106,7 +106,7 @@ public class AirlineManagementService {
 		userBean.getPerson().setPassport_number("H70409131");
 		userBean.getPerson().setAddress_line1("190 Ryland Street");
 		userBean.getPerson().setCity("San Jose");
-		userBean.getPerson().setCounrty("USA");
+		userBean.getPerson().setCountry("USA");
 		userBean.getPerson().setState("CA");
 		userBean.getPerson().setEmail_address("amol.mane@sjsu.edu");
 		userBean.getPerson().setZip_code("95110");
