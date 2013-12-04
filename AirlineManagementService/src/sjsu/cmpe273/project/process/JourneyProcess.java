@@ -3,6 +3,7 @@ package sjsu.cmpe273.project.process;
 import java.sql.Connection;
 
 import sjsu.cmpe273.project.beans.JourneyDetailBean;
+import sjsu.cmpe273.project.beans.LocationsBean;
 import sjsu.cmpe273.project.dao.JourneyDetailsDao;
 import sjsu.cmpe273.project.helper.ConnectJDBC;
 import sjsu.cmpe273.project.helper.ProjectHelper;
@@ -132,5 +133,21 @@ public class JourneyProcess {
 			ProjectHelper.closeConnection(connection);
 		}
 		return isCancelled;
+	}
+	
+	public JourneyDetailBean[] searchJourneys(String to, String from, String time){
+		Connection connection = null;
+		ConnectJDBC connectJDBC = new ConnectJDBC();
+		connection = connectJDBC.connectDatabase();
+		// search location to and from 
+		LocationsProcess l = new LocationsProcess();
+		LocationsBean source = l.searchLocation(from);
+		LocationsBean destination = l.searchLocation(to);
+		if(source == null || destination == null){
+			return null;
+		}else{
+			JourneyDetailsDao jdd = new JourneyDetailsDao();
+			return jdd.listJourneys(connection, destination, source, time);
+		}
 	}
 }

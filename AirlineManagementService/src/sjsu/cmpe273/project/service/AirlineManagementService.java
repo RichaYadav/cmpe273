@@ -26,6 +26,7 @@ public class AirlineManagementService {
 	EmployeeProcess employeeProcess = new EmployeeProcess();
 	CustomerProcess custumorProcess = new CustomerProcess();
 	PersonProcess personProcess = new PersonProcess();
+	JourneyProcess journeyProcess = new JourneyProcess();
 	//Frank 
 	public UserBean login(String email, String password) {
 		UserBean userBean = personProcess.loginProcess(email,password );
@@ -62,7 +63,7 @@ public class AirlineManagementService {
 	 * Completed by Frank. 
 	 * Any problems, tell me.
 	 */
-	public boolean createEmployee(UserBean userBean){
+	public int createEmployee(UserBean userBean){
 		return employeeProcess.createEmployeeProcess(userBean);
 		//return userBean;
 	}
@@ -86,6 +87,11 @@ public class AirlineManagementService {
 	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
 		UserBean userBean = new UserBean();
 		return userBean;
+	}
+	public JourneyDetailBean[] searchJourneys(String to, String from,
+			String time) {
+		
+		return journeyProcess.searchJourneys(to, from, time);
 	}
 	/*********************************************************************/
 	

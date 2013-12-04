@@ -26,4 +26,12 @@ public class LocationsProcess {
 		}
 		return locationList;
 	}
+	
+	public LocationsBean searchLocation(String location) {
+		Connection connection = null;
+		ConnectJDBC connectJDBC = new ConnectJDBC();
+		connection = connectJDBC.connectDatabase();
+		LocationDetailsDao locationDetailsDao = new LocationDetailsDao();
+		return locationDetailsDao.searchLocation(connection, location);
+	}
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import sjsu.cmpe273.project.beans.JourneyDetailBean;
 import sjsu.cmpe273.project.beans.LocationsBean;
@@ -304,5 +305,51 @@ public class JourneyDetailsDao {
 			ProjectHelper.closeStatement(statement);
 		}
 		return isCancelled;
+	}
+	
+	public JourneyDetailBean[] listJourneys(Connection connection,
+			LocationsBean to, LocationsBean from, String time) {
+		Statement statement = null;
+		ResultSet resultSet = null;
+		/*
+		String sql = "select * from journey_details where DEPARTURE_TIME = '"
+				+ time + "' " + "and FLIGHT_SOURCE = '" + from.getLocation_id()
+				+ "' and FLIGHT_DESTINATION='" + to.getLocation_id() + "' ";
+		*/
+		String sql = "select * from journey_details jd " +
+				"inner join airline_details ad on jd.AIRLINE_ID = ad.AIRLINE_ID" +
+				" where  FLIGHT_SOURCE = " + from.getLocation_id()
+			+ " and FLIGHT_DESTINATION=" + to.getLocation_id() + " and FLIGHT_CANCELLED = 0";
+		ArrayList<JourneyDetailBean> journeys = new ArrayList<JourneyDetailBean>();
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				JourneyDetailBean j = new JourneyDetailBean();
+				j.setDestinationLocation(to);
+				j.setSourceLocation(from);
+				j.setArrival_time(resultSet.getString("arrival_time"));
+				j.setDeparture_time(resultSet.getString("departure_time"));
+				j.setSeats_available(resultSet.getInt("SEATS_AVAILABLE"));
+				j.setSeats_booked(resultSet.getInt("seats_booked"));
+				j.setTicket_price(resultSet.getFloat("ticket_price"));
+				j.setJourney_status(resultSet.getInt("FLIGHT_CANCELLED"));
+				j.setFlight_id(resultSet.getInt("flight_id"));
+				j.setArrival_time(resultSet.getString("airline_name"));
+				journeys.add(j);
+
+			}
+			System.out.println(this.getClass().toString()+" class Success ---> method{listJourneys()}");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(this.getClass().toString()+" class errot---> method{listJourneys()}");
+			System.out.println("sQL----->"+sql);
+		}
+		JourneyDetailBean[] jd = new JourneyDetailBean[journeys.size()];
+		for (int i = 0; i < journeys.size(); i++) {
+			jd[i] = journeys.get(i);
+		}
+		return jd;
 	}
 }

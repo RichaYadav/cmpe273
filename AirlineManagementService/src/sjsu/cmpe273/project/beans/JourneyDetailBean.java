@@ -11,11 +11,13 @@ public class JourneyDetailBean {
 	float ticket_price;
 	String departure_time;
 	String arrival_time;
-//<<<<<<< HEAD
-////<<<<<<< HEAD
-//=======
-//>>>>>>> 83dd5471c0d813373febd5f4d04888352e6260e0
 	int journey_status;
+	String airline_name;
+	String flight_name;
+	LocationsBean sourceLocation;
+	LocationsBean destinationLocation;
+	
+	
 	
 	public int getJourney_status() {
 		return journey_status;
@@ -23,12 +25,13 @@ public class JourneyDetailBean {
 	public void setJourney_status(int journey_status) {
 		this.journey_status = journey_status;
 	}
-//<<<<<<< HEAD
-////=======
-	LocationsBean sourceLocation;
-	LocationsBean destinationLocation;
-	String flight_name;
 
+	public String getAirline_name() {
+		return airline_name;
+	}
+	public void setAirline_name(String airline_name) {
+		this.airline_name = airline_name;
+	}
 	public String getFlight_name() {
 		return flight_name;
 	}

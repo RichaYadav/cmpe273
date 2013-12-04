@@ -92,4 +92,33 @@ public class LocationDetailsDao {
 
 		return locationCount;
 	}
+	
+	public LocationsBean searchLocation(Connection connection , String location){
+		Statement st = null;
+		ResultSet rs = null;
+		String sql = "select * from locations where LOCATION_NAME = '"+location+"'";
+		LocationsBean l = new LocationsBean();
+		try {
+			st = connection.createStatement();
+			rs= st.executeQuery(sql);
+			while(rs.next()){
+				l.setLocation_id(Integer.parseInt(rs.getString("location_id")));
+				l.setAirport_name(rs.getString("airport_name"));
+				l.setAddress(rs.getString("address"));
+				l.setCountry(rs.getString("country"));
+				l.setLocation_name(rs.getString("location_name"));
+				l.setState(rs.getString("state"));
+				l.setZip_code(rs.getInt("zip_code"));
+			}
+			return l;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}finally{
+			ProjectHelper.closeResultSet(rs);
+			ProjectHelper.closeStatement(st);
+			
+		}
+	}
 }
