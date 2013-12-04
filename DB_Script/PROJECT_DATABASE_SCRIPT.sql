@@ -117,7 +117,7 @@ ALTER TABLE PERSON MODIFY COLUMN PASSPORT_NUMBER VARCHAR(20) unique;
 ALTER TABLE BOOKING_DETAILS ADD COLUMN JOURNEY_ID INT NOT NULL REFERENCES JOURNEY_DETAILS(JOURNEY_ID) ;
 
 ALTER TABLE TICKET_DETAILS DROP INDEX SSN;
-ALTER TABLE BOOKING_DETAILS ADD COLUMN JOURNEY_ID INT NOT NULL REFERENCES JOURNEY_DETAILS(JOURNEY_ID) ;
+
 /************************* NEW ALTERATIONS :: END ***************************************/
 
 /************************* NEW ALTERATIONS  :: AMOL MANE :: 3 DEC 2013  ***************************************/
@@ -151,7 +151,7 @@ INSERT INTO COMMON_VALUES(ID_TYPE, ID_DESCRIPTION) VALUES ('PAYMENT_STATUS','FAI
 
 /********************************************** COMMON_VALUES ******************************************************/
 INSERT INTO  USER_ACCOUNT VALUES(1, '68018500', now(), 3);
-insert into person value(1,3,'admin','admin','admin@admin.com','1111','1111','111111','11','12','22','1111');
+-- insert into person value(1,3,'admin','admin','admin@admin.com','1111','1111','111111','11','12','22','1111');
 
 
 
