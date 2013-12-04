@@ -114,7 +114,7 @@ ALTER TABLE PERSON MODIFY COLUMN PASSPORT_NUMBER VARCHAR(20) unique;
 ALTER TABLE BOOKING_DETAILS ADD COLUMN JOURNEY_ID INT NOT NULL REFERENCES JOURNEY_DETAILS(JOURNEY_ID) ;
 
 ALTER TABLE TICKET_DETAILS DROP INDEX SSN;
-ALTER TABLE BOOKING_DETAILS ADD COLUMN JOURNEY_ID INT NOT NULL REFERENCES JOURNEY_DETAILS(JOURNEY_ID) ;
+
 /************************* NEW ALTERATIONS :: END ***************************************/
 
 
@@ -142,7 +142,7 @@ ALTER TABLE journey_details ADD COLUMN AIRLINE_ID  INT NOT NULL references  airl
 UPDATE  journey_details set AIRLINE_ID = 1;
 
 INSERT INTO  USER_ACCOUNT VALUES(1, '68018500', now(), 3);
-insert into person value(1,3,'admin','admin','admin@admin.com','1111','1111','111111','11','12','22','1111');
+-- insert into person value(1,3,'admin','admin','admin@admin.com','1111','1111','111111','11','12','22','1111');
 
 insert into airline_details(airline_name) values("san jose");
 insert into airline_details(airline_name) values("san Francisco");
