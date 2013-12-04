@@ -51,14 +51,9 @@ public class CustomerProcess {
 		}
 		return "";
 	}
-<<<<<<< HEAD
-
-	public UserBean[] listAllCustomersProcess(){
-=======
 	
 	// shibai
 	public UserBean[] listAllCustomersProcess() {
->>>>>>> 3eb31645174a318b7026c69098181be7b12b1fd1
 		Connection connection = null;
 		ConnectJDBC connectJDBC = new ConnectJDBC();
 		connection = connectJDBC.connectDatabase();
@@ -74,8 +69,6 @@ public class CustomerProcess {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
 	// shibai
 	public UserBean[] searchCustomerProcess(String searchType, UserBean user) {
 		Connection connection = null;
@@ -93,11 +86,4 @@ public class CustomerProcess {
 	}
 	
 
->>>>>>> 3eb31645174a318b7026c69098181be7b12b1fd1
-	/*
-	public ReservationDetailBean[] listAllReservations(){
-		
-		
-	}
-	*/
 }

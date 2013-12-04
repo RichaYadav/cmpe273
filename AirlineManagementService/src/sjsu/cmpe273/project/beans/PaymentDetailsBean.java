@@ -5,4 +5,5 @@ JourneyDetailBean journeyDetailBean;
 String payment_status;
 String payemntDate;
 
+
 }
