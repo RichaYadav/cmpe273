@@ -10,22 +10,20 @@ import sjsu.cmpe273.project.beans.AirlineEmployeeBean;
 import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.UserBean;
 import sjsu.cmpe273.project.helper.ConnectJDBC;
-import sjsu.cmpe273.project.helper.ProjectHelper;
 
 /*
  * By Frank;
  */
 
-public class AirlineEmployeeDao {
+public class AirlineEmployee {
 	Connection connection=null;
 	Statement st = null;
 	ResultSet rs = null;
 	
-	public boolean storeEmployeeInfo(AirlineEmployeeBean employee){
-		String sub_sql = "select id from common_values where id_type='person' and id_description = 'employee'";
+	public void storeEmployeeInfo(AirlineEmployeeBean employee){
+
 		String sql_insertEmply = "insert into airline_employee(ssn , person_id , DESIGNATION)" +
-		" value("+employee.getSsn()+", "+employee.getPerson_id()+" , ("+sub_sql+")) ";
-		
+		" value("+employee.getSsn()+", "+employee.getPerson_id()+" , "+employee.getDesignation()+") ";
 		ConnectJDBC connectionJDBC = new ConnectJDBC();
 		connection = connectionJDBC.connectDatabase();
 		try {
@@ -33,65 +31,39 @@ public class AirlineEmployeeDao {
 			st.executeUpdate(sql_insertEmply);
 			connectionJDBC.closeConnection(null, st, connection);
 			System.out.println("Completing Storing! ");
-			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Storing Employee failed!");
-			return false;
 		}	 
 	}	
 	
-	public boolean deleteEmployeeInfo(Connection connection, int ssn){
+	public boolean deleteEmployeeInfo(int ssn){
 		String sql_deleteEmply = "delete from airline_employee where ssn ="+ssn;
-		
+		ConnectJDBC connectionJDBC = new ConnectJDBC();
+		connection = connectionJDBC.connectDatabase();
 		try {
 			st = connection.createStatement();
 			st.executeUpdate(sql_deleteEmply);
+			connectionJDBC.closeConnection(null, st, connection);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}finally{
-			ProjectHelper.closeStatement(st);
-		}
+		}	
 	}
 	
-	//which method should be in personDao
-	
-	
-	public UserBean[] selectAllEmployees(Connection connection){
+	public UserBean[] selectAllEmployees(){
 		String sql_selectEmply = "select * from airline_employee emp  " +
 				"inner join person p on emp.person_id = p.person_id ";
 		//String sql_selectEmply1 = "select * from airline_employee";
-		return formUserBeans( connection , sql_selectEmply);
-	}
-	
-	
-	public UserBean[] searchEmployee(Connection connection ,String searchType, UserBean user){
-		String sql = "select * from airline_employee emply inner join person p on emply.person_id=p.person_id";
-		if(searchType.equals("email")){
-			sql = sql + " where email_addresss='"+user.getPerson().getEmail_address()+"'";
-			System.out.println(sql);
-		}else if(searchType.equals("name")){
-			sql = sql + " where last_name='"+user.getPerson().getLast_name()+"' " +
-					"and first_name='"+user.getPerson().getFirst_name()+"'";
-		}else if(searchType.equals("ssn")){
-			sql = sql + " where ssn =" + user.getEmployeeBean().getSsn();
-		}else if(searchType.equals("passport_number")){
-			sql = sql + " where passport_number='"+user.getPerson().getPassport_number()+"'";
-		}
-		System.out.println("searchEmployee().SQL----->"+sql);
-		return formUserBeans(connection , sql);
-	}
-	
-	
-	public  UserBean[] formUserBeans(Connection connection , String sql){
-		List<UserBean> employees = new ArrayList<UserBean>();
+		List employees = new ArrayList();
+		ConnectJDBC connectionJDBC = new ConnectJDBC();
+		connection = connectionJDBC.connectDatabase();
 		try {
 			st = connection.createStatement();
-			rs = st.executeQuery(sql);
+			rs = st.executeQuery(sql_selectEmply);
 			while(rs.next()){
 				PersonBean person = new PersonBean();
 				person.setPerson_id(rs.getInt("p.person_id"));
@@ -118,21 +90,17 @@ public class AirlineEmployeeDao {
 				
 				employees.add(userBean);
 			}
-			
+			connectionJDBC.closeConnection(rs, st, connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			ProjectHelper.closeResultSet(rs);
-			ProjectHelper.closeStatement(st);
-		}
-		
+		}	
 		UserBean[] employeesArray = new UserBean[employees.size()];
 		for(int i = 0; i < employees.size() ; i++ ){
 			employeesArray[i] = (UserBean)employees.get(i);
 		}
-
+		
 		return employeesArray;
 	}
-	
+
 }

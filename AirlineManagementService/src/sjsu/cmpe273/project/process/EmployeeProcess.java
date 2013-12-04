@@ -16,12 +16,11 @@ public class EmployeeProcess {
 
 	AirlineEmployeeDao airlineEmply = new AirlineEmployeeDao();
 
-	public int createEmployeeProcess(UserBean user) {
+	public boolean createEmployeeProcess(UserBean user) {
 		Connection connection = null;
 		ConnectJDBC connectJDBC = new ConnectJDBC();
 		connection = connectJDBC.connectDatabase();
-		
-		boolean isSuccess = true;
+
 		PersonProcess pp = new PersonProcess();
 		AirlineEmployeeBean employee = user.getEmployeeBean();
 		// check if employee is already in the person table
@@ -32,35 +31,19 @@ public class EmployeeProcess {
 			 * Here we need to improve with Statement.getGeneratedKey()
 			 */
 			// if not, create person , then create employee
-			isSuccess = pp.createPersonProcess(user);
+			boolean isSuccess = pp.createPersonProcess(user);
 			System.out.println("create user ----> " + isSuccess);
 			if (isSuccess) {
 				PersonBean p1 = pp.findPersonProcess(user);
 				employee.setPerson_id(p1.getPerson_id());
-				isSuccess = airlineEmply.storeEmployeeInfo(employee);
-				if(isSuccess){
-					return 1; // 1 = store successfully
-				}else {
-					return 0; // 0 = store unsuccessfully
-				}
+				return airlineEmply.storeEmployeeInfo(employee);
 			}else{
-				return 2; // 2 = creat person unsuccessfully
+				return false;
 			}
 		} else {
 			// else get person id , create employee
 			employee.setPerson_id(p.getPerson_id());
-			UserBean[] users = airlineEmply.searchEmployee(connection, "person_id", user);
-			if(users.length != 0){
-				System.out.println("person_id ----> " + user.getEmployeeBean().getPerson_id());
-				isSuccess = airlineEmply.storeEmployeeInfo(employee);
-				if(isSuccess){
-					return 3; // person exist previously, but not a employee. Now is employee
-				}else{
-					return 0;  
-				}
-			}else{
-				return 4; // 4 = employee exist 
-			}
+			return airlineEmply.storeEmployeeInfo(employee);
 		}
 	}
 
