@@ -73,8 +73,8 @@ public class JourneyDetailsDao {
 			rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				JourneyDetailBean j = new JourneyDetailBean();
-				j.setTo(to);
-				j.setFrom(from);
+				j.setDestinationLocation(to);
+				j.setDestinationLocation(from);
 				j.setArrival_time(rs.getString("arrival_time"));
 				j.setDeparture_time(rs.getString("departure_time"));
 				j.setSeats_available(rs.getInt("SEATS_AVAILABLE"));

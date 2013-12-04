@@ -14,7 +14,7 @@ public class JourneyDetailBean {
 	LocationsBean sourceLocation;
 	LocationsBean destinationLocation;
 	String flight_name;
-	
+	String airline_name;
 	int journey_status;
 	
 	public int getJourney_status() {
@@ -24,8 +24,12 @@ public class JourneyDetailBean {
 		this.journey_status = journey_status;
 	}
 
-	
-
+	public String getAirline_name() {
+		return airline_name;
+	}
+	public void setAirline_name(String airline_name) {
+		this.airline_name = airline_name;
+	}
 	public String getFlight_name() {
 		return flight_name;
 	}
