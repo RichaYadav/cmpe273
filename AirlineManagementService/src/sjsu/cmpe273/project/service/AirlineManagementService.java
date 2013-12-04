@@ -12,10 +12,11 @@ import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.ReservationDetailBean;
 import sjsu.cmpe273.project.beans.TravelerBean;
 import sjsu.cmpe273.project.beans.UserBean;
-import sjsu.cmpe273.project.process.FlightProcess;
+import sjsu.cmpe273.project.process.CustomerProcess;
 import sjsu.cmpe273.project.process.EmployeeProcess;
-import sjsu.cmpe273.project.process.LocationsProcess;
+import sjsu.cmpe273.project.process.FlightProcess;
 import sjsu.cmpe273.project.process.JourneyProcess;
+import sjsu.cmpe273.project.process.LocationsProcess;
 @WebService
 public class AirlineManagementService {
 	EmployeeProcess employeeProcess = new EmployeeProcess();
@@ -55,34 +56,34 @@ public class AirlineManagementService {
 	 * Completed by Frank. 
 	 * Any problems, tell me.
 	 */
-	public void createEmployee(UserBean userBean) {
-		employeeProcess.createEmployeeProcess(userBean.getEmployeeBean());
-		//return userBean;
-	}
-	
-	public boolean deleteEmployee(int userSsn) {
-		return employeeProcess.deleteEmployeeProcess(userSsn);
-	}
-	
-	public UserBean[] listAllEmployees() {
-		return employeeProcess.listAllEmployeesProcess();
-	}
-<<<<<<< HEAD
-	
-	public UserBean[] searchEmployee(String searchType, UserBean employee ){
-		return employeeProcess.searchEmployeeProcess(searchType, employee);
-	}
-	
-	public void editEmployee(){
-		
-	}
-	
-	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
-		UserBean userBean = new UserBean();
-		return userBean;
-	}
-=======
->>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
+//	public void createEmployee(UserBean userBean) {
+//		employeeProcess.createEmployeeProcess(userBean.getEmployeeBean());
+//		//return userBean;
+//	}
+//	
+//	public boolean deleteEmployee(int userSsn) {
+//		return employeeProcess.deleteEmployeeProcess(userSsn);
+//	}
+//	
+//	public UserBean[] listAllEmployees() {
+//		return employeeProcess.listAllEmployeesProcess();
+//	}
+////<<<<<<< HEAD
+//	
+//	public UserBean[] searchEmployee(String searchType, UserBean employee ){
+//		return employeeProcess.searchEmployeeProcess(searchType, employee);
+//	}
+//	
+//	public void editEmployee(){
+//		
+//	}
+//	
+//	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
+//		UserBean userBean = new UserBean();
+//		return userBean;
+//	}
+//=======
+//>>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
 	/*********************************************************************/
 	
 	public String createBooking(FlightDetailBean flightDetailBean, TravelerBean travelerBean) {
@@ -111,12 +112,12 @@ public class AirlineManagementService {
 	}
 
 	public UserBean[] listAllCustomer() {
-<<<<<<< HEAD
+		CustomerProcess custumorProcess = new CustomerProcess();
 		return custumorProcess.listAllCustomersProcess();
-=======
-		UserBean userBean[] = new UserBean[1];
-		return userBean;
->>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
+//=======
+//		UserBean userBean[] = new UserBean[1];
+//		return userBean;
+ 
 	}
 	
 	public ReservationDetailBean[] listAllReservation() {
@@ -222,10 +223,7 @@ public class AirlineManagementService {
 		return isCancelled;
 	}
 	/*public static void main(String[] args) {
-		AirlineManagementService airlineManagementService = new AirlineManagementService();
-		JourneyDetailBean journeyDetailBean = airlineManagementService.journeyDetail(6);
-		for (JourneyDetailBean journeyDetailBean : journeyList) {
-			System.out.println(journeyDetailBean.getDeparture_time());
-		}
+		CustomerProcess customerProcess = new CustomerProcess();
+		customerProcess.createBooking(new JourneyDetailBean(), new UserBean[1], new PaymentDetailsBean());
 	}*/
 }

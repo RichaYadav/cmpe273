@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import sjsu.cmpe273.project.beans.JourneyDetailBean;
+import sjsu.cmpe273.project.beans.CommonValuesBean;
 import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.ReservationDetailBean;
 import sjsu.cmpe273.project.beans.TravelerBean;
@@ -16,9 +16,11 @@ import sjsu.cmpe273.project.helper.ProjectHelper;
 
 // Shibai
 public class CustomerDao {
-	
-	Statement st = null;
-	ResultSet rs = null;
+
+	/*
+	 * Statement st = null; ResultSet rs = null;
+	 */
+
 
 	public boolean createCustomer(UserBean customer) {
 		boolean isCreated = false;
@@ -29,9 +31,11 @@ public class CustomerDao {
 
 	// cancel a booking
 	public String cancelBooking(Connection connection, TravelerBean travelerBean) {
+		Statement st = null;
+		ResultSet rs = null;
+
 		int booking_id = travelerBean.getBooking_id();
-		String query = "update booking_details set booking_cancelled=1 where booking_id="
-				+ booking_id;
+		String query = "update booking_details set booking_cancelled=1 where booking_id=" + booking_id;
 		try {
 			st = connection.createStatement();
 			st.executeUpdate(query);
@@ -39,70 +43,68 @@ public class CustomerDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
-		}finally{
+		} finally {
 			ProjectHelper.closeStatement(st);
+			ProjectHelper.closeResultSet(rs);
 		}
 		return "cancelled";
 	}
 
 	// issue new ticket
-	public boolean issueTicket(Connection connection ,UserBean userBean) {
+	public boolean issueTicket(Connection connection, UserBean userBean) {
+
+		Statement st = null;
+		ResultSet rs = null;
+
 		TravelerBean ticket = userBean.getTraveler();
 
-		String query = "insert into ticket_details(ssn, person_id, booking_id) values("
-				+ ticket.getSsn()
-				+ ", "
-				+ ticket.getPerson_id()
-				+ ", "
+		String query = "insert into ticket_details(ssn, person_id, booking_id) values(" + ticket.getSsn() + ", " + ticket.getPerson_id() + ", "
 				+ ticket.getBooking_id() + ")";
 		try {
-			
+
 			st = connection.createStatement();
 			st.executeUpdate(query);
-		
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}finally{
+		} finally {
 			ProjectHelper.closeStatement(st);
+			ProjectHelper.closeResultSet(rs);
 		}
 		return true;
 	}
 
 	// create booking
-	public int createBooking(Connection connection,
-			ReservationDetailBean reserve) {
-		String sql = "insert into booking_details(booking_status, payment_id ,JOURNEY_ID) "
-				+ "value("
-				+ reserve.getBookingDetailBean().getBooking_status()
-				+ ","
-				+ ""
-				+ reserve.getBookingDetailBean().getPayment_id()
-				+ ","
-				+ ""
-				+ reserve.getBookingDetailBean().getJournry_id()
-				+ ")";
+	public int createBooking(Connection connection, ReservationDetailBean reserve) {
+
+		Statement st = null;
+		ResultSet rs = null;
+
+		String sql = "insert into booking_details(booking_status, payment_id ,JOURNEY_ID) " + "value(" + reserve.getBookingDetailBean().getBooking_status()
+				+ "," + "" + reserve.getBookingDetailBean().getPayment_id() + "," + "" + reserve.getBookingDetailBean().getJournry_id() + ")";
 
 		try {
 			st = connection.createStatement();
-			System.out.println("check executeupdate() return value--->"+st.executeUpdate(sql));
+			System.out.println("check executeupdate() return value--->" + st.executeUpdate(sql));
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
-		}finally{
+		} finally {
 			ProjectHelper.closeStatement(st);
+			ProjectHelper.closeResultSet(rs);
 		}
 
-		
 	}
 
 	// list all customers known to system
 	public UserBean[] listAllCustomers(Connection connection) {
-		String query = "select * from ticket_detail t  "
-				+ "inner join person p on t.person_id = p.person_id ";
+		Statement st = null;
+		ResultSet rs = null;
 
+		String query = "select * from ticket_detail t  " + "inner join person p on t.person_id = p.person_id ";
 
 		ArrayList<UserBean> users = new ArrayList<UserBean>();
 		try {
@@ -138,7 +140,7 @@ public class CustomerDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			ProjectHelper.closeResultSet(rs);
 			ProjectHelper.closeStatement(st);
 		}
@@ -148,40 +150,35 @@ public class CustomerDao {
 		}
 		return ret;
 	}
-	
+
 	/*
-	public ReservationDetailBean[] selectAllReservations(Connection connection){
-		List<ReservationDetailBean> reservations = new ArrayList<ReservationDetailBean>();
-		String sql = "select * from journey_details jd " +
-				"inner join flight_details fd on jd.FLIGHT_ID = fd.FLIGHT_ID " +
-				"inner join booking_details bd on  jd.JOURNEY_ID = bd.JOURNEY_ID " +
-				"inner join ticket_details td on td.BOOKING_ID = bd.BOOKING_ID " +
-				"inner join person pe on td.PERSON_ID = pe.PERSON_ID " +
-				"inner join location l on ";
-		try {
-			st = connection.createStatement();
-			rs = st.executeQuery(sql);
-			while(rs.next()){
-				JourneyDetailBean journey = new JourneyDetailBean();
-				journey.setFlight_id(Integer.parseInt(rs.getString("jd.flight_id")));
-				journey.setArrival_time(rs.getString("arrival_time"));
-				journey.setDeparture_time(rs.getString("departure_time"));
-				//journey.setFlight_destination(rs.getString("flight_destination"));
-				//journey.set
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	/*
-	public ReservationDetailBean[] selectALlReservationsByCustomer(Connection connection, UserBean customers ){
-		ArrayList<ReservationDetailBean> reservations = new ArrayList<ReservationDetailBean>();
-		
-		
-		return reservations;
-	}*/
-	
+	 * public ReservationDetailBean[] selectAllReservations(Connection
+	 * connection){ List<ReservationDetailBean> reservations = new
+	 * ArrayList<ReservationDetailBean>(); String sql =
+	 * "select * from journey_details jd " +
+	 * "inner join flight_details fd on jd.FLIGHT_ID = fd.FLIGHT_ID " +
+	 * "inner join booking_details bd on  jd.JOURNEY_ID = bd.JOURNEY_ID " +
+	 * "inner join ticket_details td on td.BOOKING_ID = bd.BOOKING_ID " +
+	 * "inner join person pe on td.PERSON_ID = pe.PERSON_ID " +
+	 * "inner join location l on "; try { st = connection.createStatement(); rs
+	 * = st.executeQuery(sql); while(rs.next()){ JourneyDetailBean journey = new
+	 * JourneyDetailBean();
+	 * journey.setFlight_id(Integer.parseInt(rs.getString("jd.flight_id")));
+	 * journey.setArrival_time(rs.getString("arrival_time"));
+	 * journey.setDeparture_time(rs.getString("departure_time"));
+	 * //journey.setFlight_destination(rs.getString("flight_destination"));
+	 * //journey.set
+	 * 
+	 * } } catch (SQLException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * } /* public ReservationDetailBean[]
+	 * selectALlReservationsByCustomer(Connection connection, UserBean customers
+	 * ){ ArrayList<ReservationDetailBean> reservations = new
+	 * ArrayList<ReservationDetailBean>();
+	 * 
+	 * 
+	 * return reservations; }
+	 */
+
 }

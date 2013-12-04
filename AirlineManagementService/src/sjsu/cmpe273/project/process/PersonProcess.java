@@ -5,7 +5,7 @@ import sjsu.cmpe273.project.beans.UserBean;
 import sjsu.cmpe273.project.dao.PersonDao;
 
 public class PersonProcess {
-	PersonDao personDao = new PersonDao();
+	/*PersonDao personDao = new PersonDao();
 	public void createPersonProcess(UserBean user){
 		personDao.createPerson();
 	}
@@ -16,5 +16,5 @@ public class PersonProcess {
 	
 	public UserBean loginProcess(String email , String password){
 		return personDao.findUser(email, password);
-	}
+	}*/
 }

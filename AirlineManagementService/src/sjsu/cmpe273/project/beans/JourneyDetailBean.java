@@ -11,7 +11,7 @@ public class JourneyDetailBean {
 	float ticket_price;
 	String departure_time;
 	String arrival_time;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	int journey_status;
 	
 	public int getJourney_status() {
@@ -20,7 +20,7 @@ public class JourneyDetailBean {
 	public void setJourney_status(int journey_status) {
 		this.journey_status = journey_status;
 	}
-=======
+//=======
 	LocationsBean sourceLocation;
 	LocationsBean destinationLocation;
 	String flight_name;
@@ -49,7 +49,7 @@ public class JourneyDetailBean {
 		this.destinationLocation = destinationLocation;
 	}
 
->>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
+//>>>>>>> 2a3a9c4a6a90249c45478cd0ce53314602a568bb
 	public int getJourney_id() {
 		return journey_id;
 	}
