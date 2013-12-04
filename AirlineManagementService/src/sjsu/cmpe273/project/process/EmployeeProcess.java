@@ -90,6 +90,23 @@ public class EmployeeProcess {
 		}finally{
 			ProjectHelper.closeConnection(connection);	
 		}
+	}
+	
+	// shibai
+	public void editEmployee(UserBean employee) {
+		Connection connection = null;
+		ConnectJDBC connectJDBC = new ConnectJDBC();
+		connection = connectJDBC.connectDatabase();
+		
+		try{
+			boolean flag = airlineEmply.updateEmployee(employee);
+			if (!flag) {
+				System.out.println("update employee failed");
+			}
+			
+		}catch (Exception e) {
+			
+		}
 		
 	}
 }

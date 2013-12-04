@@ -135,4 +135,35 @@ public class AirlineEmployeeDao {
 		return employeesArray;
 	}
 	
+	// shibai
+	public boolean updateEmployee (Connection connection, UserBean user) {
+		// update person table
+		AirlineEmployeeBean employee = user.getEmployeeBean();
+		
+		String query1 = "update AIRLINE_EMPLOYEE set DESIGNATION={select id from COMMON_VALUES where ID_TYPE='person' and ID_DESCRIPTION='employee'}"
+		+ " where person_id=" + empoyee.getPerson_id(); 
+
+		// update employee table
+		PersonBean person = user.getPerson();
+		String query2 = "update PERSON set first_name=" + person.getFirst_name() + ", last_name=" + person.getLast_name() 
+				+ ", EMAIL_ADDRESSS=" + person.getEmail_address() + ", PASSPORT_NUMBER=" + person.getPassport_number()
+				+ ", ADDRESS_LINE1=" + person.getAddress_line1() + ", ADDRESS_LINE2=" + person.getAddress_line2()
+				+ ", CITY=" + person.getCity() + ", STATE=" + person.getState() + ", COUNTRY=" + person.getCountry()
+				+ ", ZIP_CODE=" + person.getZip_code() + ", PERSON_DELETED=" + person.getPerson_deleted() + ", DOB=" + person.getDob()
+				+ " where person_id=" + person.getPerson_id();
+		try{
+			st = connection.createStatement();
+			st.executeUpdate(query1);
+			st.executeUpdate(query2);
+		
+		}catch(SQLException e){
+			e.printStackTrace)();
+			return false;
+		}finally{
+			ProjectHelper.closeStatement(st);
+		}
+		return true;
+	}
+	
+	
 }
