@@ -74,7 +74,7 @@ public class JourneyDetailsDao {
 			while (rs.next()) {
 				JourneyDetailBean j = new JourneyDetailBean();
 				j.setDestinationLocation(to);
-				j.setDestinationLocation(from);
+				j.setSourceLocation(from);
 				j.setArrival_time(rs.getString("arrival_time"));
 				j.setDeparture_time(rs.getString("departure_time"));
 				j.setSeats_available(rs.getInt("SEATS_AVAILABLE"));
