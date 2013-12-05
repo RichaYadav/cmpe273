@@ -80,9 +80,20 @@ public class AirlineManagementService {
 		return employeeProcess.searchEmployeeProcess(searchType, employee);
 	}
 	
-	public void editEmployee(){
-		
+	public boolean  updateEmployee(PersonBean person){
+		return updatePerson(person);
 	}
+	
+	// shibai
+	public boolean updatePerson(PersonBean person) {
+		return personProcess.updatePerson(person);
+	}
+	
+	// shibai
+	public UserBean[] searchCustomer(String searchType, UserBean employee) {
+		return custumorProcess.searchCustomerProcess(searchType, employee);
+	}
+	
 	
 	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
 		UserBean userBean = new UserBean();
@@ -114,7 +125,7 @@ public class AirlineManagementService {
 		userBean.getPerson().setPassport_number("H70409131");
 		userBean.getPerson().setAddress_line1("190 Ryland Street");
 		userBean.getPerson().setCity("San Jose");
-		userBean.getPerson().setCounrty("USA");
+		userBean.getPerson().setCountry("USA");
 		userBean.getPerson().setState("CA");
 		userBean.getPerson().setEmail_address("amol.mane@sjsu.edu");
 		userBean.getPerson().setZip_code("95110");

@@ -18,7 +18,8 @@ public class PersonDao {
 	public boolean createPerson(Connection connection, UserBean user) {
 		boolean isSuccessful = true;
 		String sql = "insert into person(PERSON_TYPE ,FIRST_NAME,LAST_NAME,EMAIL_ADDRESSS,"
-				+ "PASSPORT_NUMBER,ADDRESS_LINE1,ADDRESS_LINE2,CITY,STATE,COUNTRY,ZIP_CODE) " + "values("
+				+ "PASSPORT_NUMBER,ADDRESS_LINE1,ADDRESS_LINE2,CITY,STATE,COUNTRY,ZIP_CODE,birthday) "
+				+ "values("
 				+ user.getPerson().getPerson_type()
 				+ ",'"
 				+ user.getPerson().getFirst_name()
@@ -37,7 +38,11 @@ public class PersonDao {
 				+ "','"
 				+ user.getPerson().getState()
 				+ "','"
-				+ user.getPerson().getCounrty() + "','" + user.getPerson().getZip_code() + "')";
+				+ user.getPerson().getCountry()
+				+ "','"
+				+ user.getPerson().getZip_code()
+				+ "', '"
+				+ user.getPerson().getDob() + "')";
 		System.out.println(sql);
 
 		try {
@@ -55,7 +60,8 @@ public class PersonDao {
 	}
 
 	public UserBean findUser(String email, String password) {
-		String sql = "select * from person p inner join user_account u on person_id = user_id" + " where p.email_addresss='" + email + "'";
+		String sql = "select * from person p inner join user_account u on person_id = user_id"
+				+ " where p.email_addresss='" + email + "'";
 		System.out.println("sql --->  " + sql);
 		ConnectJDBC connectionJDBC = new ConnectJDBC();
 		try {
@@ -71,7 +77,6 @@ public class PersonDao {
 					person.setPerson_id(rs.getInt("person_id"));
 					person.setEmail_address(rs.getString("email_addresss"));
 					person.setPerson_type(rs.getInt("person_type"));
-					System.out.println("person_type = " + rs.getInt("person_type"));
 
 					user.setPerson(person);
 
@@ -91,7 +96,8 @@ public class PersonDao {
 	public PersonBean selectPerson(String passport_number) {
 
 		ConnectJDBC connectionJDBC = new ConnectJDBC();
-		String sql = "select * from person where passport_number='" + passport_number + "'";
+		String sql = "select * from person where passport_number='"
+				+ passport_number + "'";
 		try {
 			connection = connectionJDBC.connectDatabase();
 			st = connection.createStatement();
@@ -108,6 +114,37 @@ public class PersonDao {
 			connectionJDBC.closeConnection(rs, st, null);
 		}
 		return null;
+	}
+
+	// shibai
+	public boolean updatePerson(Connection connection, PersonBean person) {
+		// update person table
+
+		// PersonBean person = user.getPerson();
+		String query = "update PERSON set first_name='"
+				+ person.getFirst_name() + "', last_name='"
+				+ person.getLast_name() + "', EMAIL_ADDRESSS='"
+				+ person.getEmail_address() + "', PASSPORT_NUMBER='"
+				+ person.getPassport_number() + "', ADDRESS_LINE1='"
+				+ person.getAddress_line1() + "', ADDRESS_LINE2='"
+				+ person.getAddress_line2() + "', CITY='" + person.getCity()
+				+ "', STATE='" + person.getState() + "', COUNTRY='"
+				+ person.getCountry() + "', ZIP_CODE='" + person.getZip_code()
+				+ "', PERSON_DELETED=" + person.getPerson_deleted()
+				+ ", birthday='" + person.getDob() + "' where person_id="
+				+ person.getPerson_id();
+		System.out.println(query);
+		try {
+			st = connection.createStatement();
+			st.executeUpdate(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			ProjectHelper.closeStatement(st);
+		}
+		return true;
 	}
 
 }

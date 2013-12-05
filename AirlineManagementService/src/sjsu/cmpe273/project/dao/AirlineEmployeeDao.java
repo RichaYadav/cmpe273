@@ -42,6 +42,7 @@ public class AirlineEmployeeDao {
 		}	 
 	}	
 	
+	
 	public boolean deleteEmployeeInfo(Connection connection, int id){
 		String sql_deleteEmply = "update person set person_deleted=1 where person_id="+id;
 		
@@ -69,7 +70,7 @@ public class AirlineEmployeeDao {
 	
 	
 	public UserBean[] searchEmployee(Connection connection ,String searchType, UserBean user){
-		String sql = "select * from airline_employee emply inner join person p on emply.person_id=p.person_id";
+		String sql = "select * from airline_employee emp inner join person p on emp.person_id=p.person_id";
 		if(searchType.equals("email")){
 			sql = sql + " where email_addresss='"+user.getPerson().getEmail_address()+"'";
 			System.out.println(sql);
@@ -103,10 +104,13 @@ public class AirlineEmployeeDao {
 				person.setAddress_line2(rs.getString("address_line2"));
 				person.setCity(rs.getString("city"));
 				person.setState(rs.getString("state"));
-				person.setCounrty(rs.getString("country"));
+				person.setCountry(rs.getString("country"));
 				person.setZip_code(rs.getString("zip_code"));
+				person.setDob(rs.getString("birthday"));
 				
 				AirlineEmployeeBean employee = new AirlineEmployeeBean();
+				employee.setPerson_id(rs.getInt("emp.person_id"));
+				System.out.println("set id for empployee bean" +rs.getInt("emp.person_id"));
 				employee.setSsn(rs.getInt("ssn"));
 				employee.setDesignation(rs.getInt("designation"));
 				employee.setJoining_date(rs.getDate("joining_date").toString());

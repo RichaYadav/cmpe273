@@ -11,8 +11,11 @@ public class PersonBean {
 	String address_line2;
 	String city;
 	String state;
-	String counrty;
+	String country;
 	String zip_code;
+	int person_deleted;
+	String dob;
+	
 	public int getPerson_id() {
 		return person_id;
 	}
@@ -73,17 +76,29 @@ public class PersonBean {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getCounrty() {
-		return counrty;
+	public String getCountry() {
+		return country;
 	}
-	public void setCounrty(String counrty) {
-		this.counrty = counrty;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	public String getZip_code() {
 		return zip_code;
 	}
 	public void setZip_code(String zip_code) {
 		this.zip_code = zip_code;
+	}
+	public int getPerson_deleted() {
+		return person_deleted;
+	}
+	public void setPerson_deleted(int person_deleted) {
+		this.person_deleted = person_deleted;
+	}
+	public String getDob () {
+		return dob;
+	}
+	public void setDob (String dob) {
+		this.dob = dob;
 	}
 	
 	

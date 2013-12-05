@@ -142,10 +142,19 @@ public class CustomerProcess {
 		}
 	}
 
-	/*
-	 * public ReservationDetailBean[] listAllReservations(){
-	 * 
-	 * 
-	 * }
-	 */
+	// shibai
+	public UserBean[] searchCustomerProcess(String searchType, UserBean user) {
+		Connection connection = null;
+		ConnectJDBC connectJDBC = new ConnectJDBC();
+		connection = connectJDBC.connectDatabase();
+		
+		try {
+			return customerDao.searchCustomer(connection , searchType, user);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			ProjectHelper.closeConnection(connection);	
+		}
+	}
 }
