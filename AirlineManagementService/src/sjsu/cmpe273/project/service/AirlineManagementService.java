@@ -32,6 +32,10 @@ public class AirlineManagementService {
 		return userBean;
 	}
 
+	/*
+	 * NotYet
+	 * required
+	 */
 	public FlightDetailBean[] searchFlights(FlightDetailBean flightDetailBean) {
 		FlightDetailBean flightArray[] = new FlightDetailBean[1];
 		return flightArray;
@@ -42,16 +46,23 @@ public class AirlineManagementService {
 		return isSuccess;
 	}
 
+	
 	public JourneyDetailBean[] accountActivity(String userSsn) {
 		JourneyDetailBean accountArray[] = new JourneyDetailBean[1];
 		return accountArray;
 	}
 
+	/*
+	 * NotYet
+	 */
 	public UserBean createUser(PersonBean personBean) {
 		UserBean userBean = new UserBean();
 		return userBean;
 	}
 
+	/*
+	 * NotYet
+	 */
 	public boolean deleteUser(String userSsn) {
 		boolean isSuccess = true;
 		return isSuccess;
@@ -82,10 +93,16 @@ public class AirlineManagementService {
 		return personProcess.updatePerson(person);
 	}
 
+	/*
+	 * NotYet
+	 * required
+	 * on-hold
+	 */
 	public UserBean showEmployeeDetail(AirlineEmployeeBean airlineEmployeeBean) {
 		UserBean userBean = new UserBean();
 		return userBean;
 	}
+	
 
 	public JourneyDetailBean[] searchJourneys(String to, String from,
 			String time) {
@@ -95,7 +112,7 @@ public class AirlineManagementService {
 
 	/*********************************************************************/
 
-	// Shibai
+	// Amol
 	public String createBooking(FlightDetailBean flightDetailBean,
 			TravelerBean travelerBean) {
 		String bookingStatus = " ";
@@ -137,9 +154,10 @@ public class AirlineManagementService {
 		return bookingStatus;
 	}
 
-	// Shibai
+	// Amol
 	/*
 	 * NotYet
+	 * required
 	 */
 	public String cancelBooking(TravelerBean travelerBean) {
 		String bookingStatus = " ";
@@ -178,11 +196,16 @@ public class AirlineManagementService {
 		return custumorProcess.listAllCustomersProcess();
 	}
 
+	/*
+	 * NotYet
+	 * required
+	 */
 	public ReservationDetailBean[] listAllReservation() {
 		ReservationDetailBean reservationDetailBean[] = new ReservationDetailBean[1];
 		return reservationDetailBean;
 	}
 
+	// Amol
 	public FlightDetailBean[] listAllFlights() {
 
 		FlightDetailBean flightArray[] = null;
@@ -193,14 +216,17 @@ public class AirlineManagementService {
 		return flightArray;
 	}
 
-	public UserBean editUser(UserBean userBean) {
-		return userBean;
-	}
-
+	/*
+	 * NotYet
+	 * required
+	 */
 	public FlightDetailBean editFlight(FlightDetailBean flightDetailBean) {
 		return flightDetailBean;
 	}
 
+	/*
+	 * NotYet
+	 */
 	public PassengerBean[] passengerOnBoard(int journeyId,
 			TravelerBean travelerBean) {
 		PassengerBean passengerBean[] = new PassengerBean[1];
