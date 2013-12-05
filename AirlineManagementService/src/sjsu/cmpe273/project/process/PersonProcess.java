@@ -20,7 +20,6 @@ public class PersonProcess {
 		try {
 			isSuccess = personDao.createPerson(connection,user);
 		} catch (Exception e) {
-			// TODO: handle exception
 			isSuccess = false;
 		}
 		return isSuccess;
@@ -32,23 +31,5 @@ public class PersonProcess {
 	
 	public UserBean loginProcess(String email , String password){
 		return personDao.findUser(email, password);
-	}
-	
-	// shibai
-	public boolean updatePerson(PersonBean person) {
-		Connection connection = null;
-		ConnectJDBC connectJDBC = new ConnectJDBC();
-		connection = connectJDBC.connectDatabase();
-		boolean flag = false;
-		try {
-			flag = personDao.updatePerson(connection, person);
-			if (!flag) {
-				System.out.println("update employee failed");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 }

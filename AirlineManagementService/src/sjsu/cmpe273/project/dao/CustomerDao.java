@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import sjsu.cmpe273.project.beans.CommonValuesBean;
 import sjsu.cmpe273.project.beans.PersonBean;
 import sjsu.cmpe273.project.beans.ReservationDetailBean;
 import sjsu.cmpe273.project.beans.TravelerBean;
@@ -15,6 +16,10 @@ import sjsu.cmpe273.project.helper.ProjectHelper;
 
 // Shibai
 public class CustomerDao {
+
+	/*
+	 * Statement st = null; ResultSet rs = null;
+	 */
 
 
 	public boolean createCustomer(UserBean customer) {
@@ -118,7 +123,7 @@ public class CustomerDao {
 				person.setAddress_line2(rs.getString("address_line2"));
 				person.setCity(rs.getString("city"));
 				person.setState(rs.getString("state"));
-				person.setCountry(rs.getString("country"));
+				person.setCounrty(rs.getString("country"));
 				person.setZip_code(rs.getString("zip_code"));
 
 				TravelerBean traveler = new TravelerBean();
@@ -146,81 +151,6 @@ public class CustomerDao {
 		return ret;
 	}
 
-	// shibai
-	// copied and modified from searchEmployee()
-	public UserBean[] searchCustomer (Connection connection ,String searchType, UserBean user) {
-		
-		String sql = "select * from ticket_details travl inner join person p on travl.person_id=p.person_id";
-		if(searchType.equals("email")){
-			sql = sql + " where email_addresss='"+user.getPerson().getEmail_address()+"'";
-		}else if(searchType.equals("name")){
-			sql = sql + " where last_name='"+user.getPerson().getLast_name()+"' " +
-					"and first_name='"+user.getPerson().getFirst_name()+"'";
-		}else if(searchType.equals("ssn")){
-			sql = sql + " where ssn =" + user.getTraveler().getSsn();
-		}else if(searchType.equals("passport_number")){
-			sql = sql + " where passport_number='"+user.getPerson().getPassport_number()+"'";
-		}
-		System.out.println("searchCustomer().SQL----->"+sql);
-		return formUserBeans(connection , sql);
-		
-		
-	}
-	
-	
-	public  UserBean[] formUserBeans(Connection connection , String sql){
-		List<UserBean> employees = new ArrayList<UserBean>();
-		Statement st = null;
-		ResultSet rs = null;
-		try {
-			st = connection.createStatement();
-			rs = st.executeQuery(sql);
-			while(rs.next()){
-				PersonBean person = new PersonBean();
-				person.setPerson_id(rs.getInt("p.person_id"));
-				person.setPerson_type(rs.getInt("person_type"));
-				person.setFirst_name(rs.getString("first_name"));
-				person.setLast_name(rs.getString("last_name"));
-				person.setEmail_address(rs.getString("email_addresss"));
-				person.setPassport_number(rs.getString("passport_number"));
-				person.setAddress_line1(rs.getString("address_line1"));
-				person.setAddress_line2(rs.getString("address_line2"));
-				person.setCity(rs.getString("city"));
-				person.setState(rs.getString("state"));
-				person.setCountry(rs.getString("country"));
-				person.setZip_code(rs.getString("zip_code"));
-				
-				TravelerBean  traveler = new TravelerBean();
-				traveler.setSsn(rs.getInt("ssn"));
-				traveler.setTicket_id(rs.getInt("ticket_id"));
-				traveler.setPerson_id(rs.getInt("person_id"));
-				traveler.setBooking_id(rs.getInt("booking_id"));
-				
-				
-				UserBean userBean = new UserBean();
-				userBean.setPerson(person);
-				userBean.setTraveler(traveler);
-				
-				employees.add(userBean);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			ProjectHelper.closeResultSet(rs);
-			ProjectHelper.closeStatement(st);
-		}
-		System.out.println(employees.size());
-		UserBean[] employeesArray = new UserBean[employees.size()];
-		for(int i = 0; i < employees.size() ; i++ ){
-			employeesArray[i] = (UserBean)employees.get(i);
-		}
-
-		return employeesArray;
-	}	
-	
-	
 	/*
 	 * public ReservationDetailBean[] selectAllReservations(Connection
 	 * connection){ List<ReservationDetailBean> reservations = new
